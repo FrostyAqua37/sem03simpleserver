@@ -5,6 +5,8 @@ import (
 	"log"
 	"net"
 	"sync"
+
+	"github.com/FrostyAqua37/is105sem03/mycrypt"
 )
 
 func main() {
@@ -40,7 +42,8 @@ func main() {
   				        case "ping":
 						_, err = c.Write([]byte("pong"))
 					default:
-						_, err = c.Write(buf[:n])
+						dekryptertMelding := mycrypt.Krypter([]rune(string(buf[:n])), mycrypt.ALF_SEM03, len(mycrypt.ALF_SEM03)-4)
+						log.Println("Dekrypter melding: ", string(dekryptertMelding))
 					}
 					if err != nil {
 						if err != io.EOF {
